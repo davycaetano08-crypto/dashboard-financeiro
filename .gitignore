@@ -1,0 +1,27 @@
+# Environment files and virtual environments
+.env
+.env.*
+!.env.example
+.venv/
+venv/
+env/
+
+# Python caches and test artifacts
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+.coverage
+coverage.xml
+htmlcov/
+
+# Local application data
+instance/
+*.db
+*.sqlite
+*.sqlite3
+
+# Editor and local tool settings
+.codex/
+.vscode/
+.idea/
