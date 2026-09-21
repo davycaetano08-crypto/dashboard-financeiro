@@ -1,11 +1,212 @@
 <!doctype html>
-<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Overview · Lumen</title>
-<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=DM+Mono&family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,600;0,700;1,600&display=swap" rel="stylesheet"><link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}"></head>
-<body><div class="app-shell"><aside><a class="brand" href="/">lumen<span>*</span></a><nav><a class="active" href="{{ url_for('dashboard') }}">Overview</a><a href="#activity">Activity</a><a href="#planning">Planning</a></nav><div class="sidebar-bottom"><div class="avatar">{{ current_user.name[0] | upper }}</div><div><b>{{ current_user.name }}</b><a href="{{ url_for('logout') }}">Sign out</a></div></div></aside>
-<main class="dashboard"><header><div><p class="eyebrow">YOUR PERSONAL FINANCES</p><h1>Good morning, {{ current_user.name.split(' ')[0] }}.</h1><p class="muted">Here is the shape of your money this month.</p></div><div class="header-actions"><button class="theme-toggle" type="button" aria-label="Toggle theme"><span class="theme-icon">Dark</span><span class="theme-label">Dark mode</span></button><button class="add-button" onclick="document.getElementById('transaction-modal').showModal()">+ Add transaction</button></div></header>
-{% with messages = get_flashed_messages(with_categories=true) %}{% for category, message in messages %}<div class="alert {{ category }}">{{ message }}</div>{% endfor %}{% endwith %}
-<section class="hero-card"><div><p class="eyebrow">TOTAL BALANCE</p><p class="balance">${{ '{:,.2f}'.format(balance) }}</p><p class="balance-note">Across all activity</p></div><div class="hero-art"><span class="orb orb1"></span><span class="orb orb2"></span><span class="arc"></span></div></section>
-<section class="metrics"><article><p>Income</p><strong>${{ '{:,.2f}'.format(income) }}</strong><span class="positive">Money in</span></article><article><p>Spending</p><strong>${{ '{:,.2f}'.format(spending) }}</strong><span class="soft">This month</span></article><article><p>Daily average</p><strong>${{ '{:,.2f}'.format(spending / 30 if spending else 0) }}</strong><span class="soft">Based on 30 days</span></article></section>
-<section class="lower-grid"><article class="card spending" id="planning"><div class="card-heading"><div><p class="eyebrow">SPENDING BY CATEGORY</p><h2>Where it went</h2></div><span class="period">This month</span></div>{% if categories %}<div class="category-list">{% for category, total in categories.items() %}<div class="category"><div><span class="dot d{{ loop.index }}"></span>{{ category }}</div><b>${{ '{:,.0f}'.format(total) }}</b></div>{% endfor %}</div>{% else %}<div class="empty-state">Add an expense to start seeing your spending patterns.</div>{% endif %}</article>
-<article class="card activity" id="activity"><div class="card-heading"><div><p class="eyebrow">RECENT ACTIVITY</p><h2>Your latest moves</h2></div></div>{% if transactions %}<div class="transaction-list">{% for item in transactions[:5] %}<div class="transaction"><div class="transaction-icon {{ item.kind }}">{% if item.kind == 'income' %}IN{% else %}OUT{% endif %}</div><div class="transaction-name"><b>{{ item.title }}</b><span>{{ item.category }} / {{ item.occurred_on.strftime('%b %d') }}</span></div><strong class="{{ item.kind }}">{{ '+' if item.kind == 'income' else '-' }}${{ '{:,.2f}'.format(item.amount) }}</strong></div>{% endfor %}</div>{% else %}<div class="empty-state">Your transactions will appear here.</div>{% endif %}</article></section></main></div>
-<dialog id="transaction-modal"><form method="post" action="{{ url_for('add_transaction') }}" class="modal-form"><button type="button" class="close" onclick="this.closest('dialog').close()">x</button><p class="eyebrow">NEW ENTRY</p><h2>Add a transaction</h2><label>DESCRIPTION<input name="title" required placeholder="e.g. Corner Market"></label><div class="form-row"><label>AMOUNT<input name="amount" type="number" min="0.01" step="0.01" required placeholder="0.00"></label><label>TYPE<select name="kind"><option value="expense">Expense</option><option value="income">Income</option></select></label></div><div class="form-row"><label>CATEGORY<input name="category" required placeholder="Food and dining"></label><label>DATE<input name="occurred_on" type="date" required value="{{ now if now else '' }}"></label></div><button type="submit">Save transaction</button></form></dialog><script>document.querySelector('input[name="occurred_on"]').value ||= new Date().toISOString().slice(0,10)</script><script src="{{ url_for('static', filename='theme.js') }}"></script></body></html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Overview · Lumen</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Mono&family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,600;0,700;1,600&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='styles.css') }}"
+    />
+  </head>
+  <body>
+    <div class="app-shell">
+      <aside>
+        <a class="brand" href="/">lumen<span>*</span></a>
+        <nav>
+          <a class="active" href="{{ url_for('dashboard') }}">Overview</a
+          ><a href="#activity">Activity</a><a href="#planning">Planning</a>
+        </nav>
+        <div class="sidebar-bottom">
+          <div class="avatar">{{ current_user.name[0] | upper }}</div>
+          <div>
+            <b>{{ current_user.name }}</b
+            ><a href="{{ url_for('logout') }}">Sign out</a>
+          </div>
+        </div>
+      </aside>
+      <main class="dashboard">
+        <header>
+          <div>
+            <p class="eyebrow">YOUR PERSONAL FINANCES</p>
+            <h1>Good morning, {{ current_user.name.split(' ')[0] }}.</h1>
+            <p class="muted">Here is the shape of your money this month.</p>
+          </div>
+          <div class="header-actions">
+            <button
+              class="theme-toggle"
+              type="button"
+              aria-label="Toggle theme"
+            >
+              <span class="theme-icon">Dark</span
+              ><span class="theme-label">Dark mode</span></button
+            ><button
+              class="add-button"
+              onclick="document.getElementById('transaction-modal').showModal()"
+            >
+              + Add transaction
+            </button>
+          </div>
+        </header>
+        {% with messages = get_flashed_messages(with_categories=true) %}{% for
+        category, message in messages %}
+        <div class="alert {{ category }}">{{ message }}</div>
+        {% endfor %}{% endwith %}
+        <section class="hero-card">
+          <div>
+            <p class="eyebrow">TOTAL BALANCE</p>
+            <p class="balance">${{ '{:,.2f}'.format(balance) }}</p>
+            <p class="balance-note">Across all activity</p>
+          </div>
+          <div class="hero-art">
+            <span class="orb orb1"></span><span class="orb orb2"></span
+            ><span class="arc"></span>
+          </div>
+        </section>
+        <section class="metrics">
+          <article>
+            <p>Income</p>
+            <strong>${{ '{:,.2f}'.format(income) }}</strong
+            ><span class="positive">Money in</span>
+          </article>
+          <article>
+            <p>Spending</p>
+            <strong>${{ '{:,.2f}'.format(spending) }}</strong
+            ><span class="soft">This month</span>
+          </article>
+          <article>
+            <p>Daily average</p>
+            <strong
+              >${{ '{:,.2f}'.format(spending / 30 if spending else 0) }}</strong
+            ><span class="soft">Based on 30 days</span>
+          </article>
+        </section>
+        <section class="lower-grid">
+          <article class="card spending" id="planning">
+            <div class="card-heading">
+              <div>
+                <p class="eyebrow">SPENDING BY CATEGORY</p>
+                <h2>Where it went</h2>
+              </div>
+              <span class="period">This month</span>
+            </div>
+            {% if categories %}
+            <div class="category-list">
+              {% for category, total in categories.items() %}
+              <div class="category">
+                <div>
+                  <span class="dot d{{ loop.index }}"></span>{{ category }}
+                </div>
+                <b>${{ '{:,.0f}'.format(total) }}</b>
+              </div>
+              {% endfor %}
+            </div>
+            {% else %}
+            <div class="empty-state">
+              Add an expense to start seeing your spending patterns.
+            </div>
+            {% endif %}
+          </article>
+          <article class="card activity" id="activity">
+            <div class="card-heading">
+              <div>
+                <p class="eyebrow">RECENT ACTIVITY</p>
+                <h2>Your latest moves</h2>
+              </div>
+            </div>
+            {% if transactions %}
+            <div class="transaction-list">
+              {% for item in transactions[:5] %}
+              <div class="transaction">
+                <div class="transaction-icon {{ item.kind }}">
+                  {% if item.kind == 'income' %}IN{% else %}OUT{% endif %}
+                </div>
+                <div class="transaction-name">
+                  <b>{{ item.title }}</b
+                  ><span
+                    >{{ item.category }} / {{ item.occurred_on.strftime('%b %d')
+                    }}</span
+                  >
+                </div>
+                <strong class="{{ item.kind }}"
+                  >{{ '+' if item.kind == 'income' else '-' }}${{
+                  '{:,.2f}'.format(item.amount) }}</strong
+                >
+              </div>
+              {% endfor %}
+            </div>
+            {% else %}
+            <div class="empty-state">Your transactions will appear here.</div>
+            {% endif %}
+          </article>
+        </section>
+      </main>
+    </div>
+    <dialog id="transaction-modal">
+      <form
+        method="post"
+        action="{{ url_for('add_transaction') }}"
+        class="modal-form"
+      >
+        <button
+          type="button"
+          class="close"
+          onclick="this.closest('dialog').close()"
+        >
+          x
+        </button>
+        <p class="eyebrow">NEW ENTRY</p>
+        <h2>Add a transaction</h2>
+        <label
+          >DESCRIPTION<input
+            name="title"
+            required
+            placeholder="e.g. Corner Market"
+        /></label>
+        <div class="form-row">
+          <label
+            >AMOUNT<input
+              name="amount"
+              type="number"
+              min="0.01"
+              step="0.01"
+              required
+              placeholder="0.00" /></label
+          ><label
+            >TYPE<select name="kind">
+              <option value="expense">Expense</option>
+              <option value="income">Income</option>
+            </select></label
+          >
+        </div>
+        <div class="form-row">
+          <label
+            >CATEGORY<input
+              name="category"
+              required
+              placeholder="Food and dining" /></label
+          ><label
+            >DATE<input
+              name="occurred_on"
+              type="date"
+              required
+              value="{{ now if now else '' }}"
+          /></label>
+        </div>
+        <button type="submit">Save transaction</button>
+      </form>
+    </dialog>
+    <script>
+      document.querySelector('input[name="occurred_on"]').value ||= new Date()
+        .toISOString()
+        .slice(0, 10);
+    </script>
+    <script src="{{ url_for('static', filename='theme.js') }}"></script>
+  </body>
+</html>

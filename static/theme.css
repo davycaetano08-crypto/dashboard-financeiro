@@ -1,1 +1,113 @@
-.header-actions{display:flex;align-items:center;gap:10px}.theme-toggle{border:1px solid var(--line);background:transparent;color:var(--ink);border-radius:8px;padding:10px 12px;font:500 12px 'DM Sans',sans-serif;cursor:pointer;display:flex;align-items:center;gap:7px}.theme-toggle:hover{background:#e8ede5}.theme-icon{font-size:11px;font-family:'DM Mono',monospace}.auth-theme{position:fixed;right:26px;top:25px;z-index:3;background:#ffffff80;border-color:#6d8d7d}html[data-theme="dark"]{--ink:#e9eee9;--muted:#a9b8b0;--paper:#172222;--line:#2c3b3a;--green:#567969;--green-deep:#a9c6a0;--orange:#ee956d;--cream:#6f674e}html[data-theme="dark"] body{background:var(--paper)}html[data-theme="dark"] aside{background:#1b2928}html[data-theme="dark"] nav a.active{background:#345047;color:#f3f6f0}html[data-theme="dark"] .metrics article,html[data-theme="dark"] .card{background:#20302f}html[data-theme="dark"] .category,html[data-theme="dark"] .transaction{border-color:#30413f}html[data-theme="dark"] .period,html[data-theme="dark"] .modal-form input,html[data-theme="dark"] .modal-form select,html[data-theme="dark"] .form-box input{border-color:#415350;background:#172625;color:var(--ink)}html[data-theme="dark"] dialog{background:#20302f}html[data-theme="dark"] .form-panel{background:#1b2928}html[data-theme="dark"] .auth-body{background:#172222}html[data-theme="dark"] .brand-panel{background:#456858}html[data-theme="dark"] .brand-panel:after{border-color:#a38e5d}html[data-theme="dark"] .brand-copy,html[data-theme="dark"] .quote{color:#d1dfd0}html[data-theme="dark"] .theme-toggle:hover{background:#304541}html[data-theme="dark"] .auth-theme{background:#1b292899}@media(max-width:800px){.header-actions{margin-top:22px}.dashboard header .add-button{margin-top:0}.auth-theme{right:15px;top:15px}.theme-label{display:none}.theme-toggle{padding:9px 11px}}
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.theme-toggle {
+  border: 1px solid var(--line);
+  background: transparent;
+  color: var(--ink);
+  border-radius: 8px;
+  padding: 10px 12px;
+  font:
+    500 12px "DM Sans",
+    sans-serif;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 7px;
+}
+.theme-toggle:hover {
+  background: #e8ede5;
+}
+.theme-icon {
+  font-size: 11px;
+  font-family: "DM Mono", monospace;
+}
+.auth-theme {
+  position: fixed;
+  right: 26px;
+  top: 25px;
+  z-index: 3;
+  background: #ffffff80;
+  border-color: #6d8d7d;
+}
+html[data-theme="dark"] {
+  --ink: #e9eee9;
+  --muted: #a9b8b0;
+  --paper: #172222;
+  --line: #2c3b3a;
+  --green: #567969;
+  --green-deep: #a9c6a0;
+  --orange: #ee956d;
+  --cream: #6f674e;
+}
+html[data-theme="dark"] body {
+  background: var(--paper);
+}
+html[data-theme="dark"] aside {
+  background: #1b2928;
+}
+html[data-theme="dark"] nav a.active {
+  background: #345047;
+  color: #f3f6f0;
+}
+html[data-theme="dark"] .metrics article,
+html[data-theme="dark"] .card {
+  background: #20302f;
+}
+html[data-theme="dark"] .category,
+html[data-theme="dark"] .transaction {
+  border-color: #30413f;
+}
+html[data-theme="dark"] .period,
+html[data-theme="dark"] .modal-form input,
+html[data-theme="dark"] .modal-form select,
+html[data-theme="dark"] .form-box input {
+  border-color: #415350;
+  background: #172625;
+  color: var(--ink);
+}
+html[data-theme="dark"] dialog {
+  background: #20302f;
+}
+html[data-theme="dark"] .form-panel {
+  background: #1b2928;
+}
+html[data-theme="dark"] .auth-body {
+  background: #172222;
+}
+html[data-theme="dark"] .brand-panel {
+  background: #456858;
+}
+html[data-theme="dark"] .brand-panel:after {
+  border-color: #a38e5d;
+}
+html[data-theme="dark"] .brand-copy,
+html[data-theme="dark"] .quote {
+  color: #d1dfd0;
+}
+html[data-theme="dark"] .theme-toggle:hover {
+  background: #304541;
+}
+html[data-theme="dark"] .auth-theme {
+  background: #1b292899;
+}
+@media (max-width: 800px) {
+  .header-actions {
+    margin-top: 22px;
+  }
+  .dashboard header .add-button {
+    margin-top: 0;
+  }
+  .auth-theme {
+    right: 15px;
+    top: 15px;
+  }
+  .theme-label {
+    display: none;
+  }
+  .theme-toggle {
+    padding: 9px 11px;
+  }
+}

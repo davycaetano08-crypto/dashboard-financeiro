@@ -1,3 +1,137 @@
 <!doctype html>
-<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Edit transaction - Lumen</title><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=DM+Mono&family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,600;0,700;1,600&display=swap" rel="stylesheet"><link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}"><link rel="stylesheet" href="{{ url_for('static', filename='pages.css') }}"></head>
-<body><div class="app-shell"><aside><a class="brand" href="/">lumen<span>*</span></a><nav><a href="{{ url_for('dashboard') }}">Overview</a><a class="active" href="{{ url_for('activity') }}">Activity</a><a href="{{ url_for('planning') }}">Planning</a></nav><div class="sidebar-bottom"><div class="avatar">{{ current_user.name[0] | upper }}</div><div><b>{{ current_user.name }}</b><a href="{{ url_for('logout') }}">Sign out</a></div></div></aside><main class="dashboard"><header><div><p class="eyebrow">TRANSACTION DETAILS</p><h1>Edit transaction.</h1><p class="muted">Update any detail, then save it back to your ledger.</p></div><div class="header-actions"><button class="theme-toggle" type="button"><span class="theme-icon">Dark</span><span class="theme-label">Dark mode</span></button></div></header>{% with messages = get_flashed_messages(with_categories=true) %}{% for category, message in messages %}<div class="alert {{ category }}">{{ message }}</div>{% endfor %}{% endwith %}<section class="card edit-card"><form method="post" class="edit-form"><label>DESCRIPTION<input name="title" required value="{{ transaction.title }}"></label><div class="form-row"><label>AMOUNT<input name="amount" type="number" min="0.01" step="0.01" required value="{{ transaction.amount }}"></label><label>TYPE<select name="kind"><option value="expense" {% if transaction.kind == 'expense' %}selected{% endif %}>Expense</option><option value="income" {% if transaction.kind == 'income' %}selected{% endif %}>Income</option></select></label></div><div class="form-row"><label>CATEGORY<input name="category" required value="{{ transaction.category }}"></label><label>DATE<input name="occurred_on" type="date" required max="{{ today }}" value="{{ transaction.occurred_on.isoformat() }}"></label></div><div class="edit-actions"><a class="cancel-link" href="{{ url_for('activity') }}">Cancel</a><button type="submit">Save changes</button></div></form></section></main></div><script src="{{ url_for('static', filename='theme.js') }}"></script></body></html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Edit transaction - Lumen</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Mono&family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,600;0,700;1,600&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='styles.css') }}"
+    />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='pages.css') }}"
+    />
+  </head>
+  <body>
+    <div class="app-shell">
+      <aside>
+        <a class="brand" href="/">lumen<span>*</span></a>
+        <nav>
+          <a href="{{ url_for('dashboard') }}">Overview</a>
+          <a class="active" href="{{ url_for('activity') }}">Activity</a>
+          <a href="{{ url_for('planning') }}">Planning</a>
+        </nav>
+        <div class="sidebar-bottom">
+          <div class="avatar">{{ current_user.name[0] | upper }}</div>
+          <div>
+            <b>{{ current_user.name }}</b>
+            <a href="{{ url_for('logout') }}">Sign out</a>
+          </div>
+        </div>
+      </aside>
+      <main class="dashboard">
+        <header>
+          <div>
+            <p class="eyebrow">TRANSACTION DETAILS</p>
+            <h1>Edit transaction.</h1>
+            <p class="muted">
+              Update any detail, then save it back to your ledger.
+            </p>
+          </div>
+          <div class="header-actions">
+            <button class="theme-toggle" type="button">
+              <span class="theme-icon">Dark</span>
+              <span class="theme-label">Dark mode</span>
+            </button>
+          </div>
+        </header>
+        {% with messages = get_flashed_messages(with_categories=true) %}{% for
+        category, message in messages %}
+        <div class="alert {{ category }}">{{ message }}</div>
+        {% endfor %}{% endwith %}
+        <section class="card edit-card">
+          <form method="post" class="edit-form">
+            <label
+              >DESCRIPTION
+              <input name="title" required value="{{ transaction.title }}" />
+            </label>
+            <div class="form-row">
+              <label
+                >AMOUNT
+                <input
+                  name="amount"
+                  type="number"
+                  min="0.01"
+                  step="0.01"
+                  required
+                  value="{{ transaction.amount }}"
+                />
+              </label>
+              <label
+                >TYPE
+                <select name="kind">
+                  <option
+                    value="expense"
+                    {%
+                    if
+                    transaction.kind=""
+                    ="expense"
+                    %}selected{%
+                    endif
+                    %}
+                  >
+                    Expense
+                  </option>
+                  <option
+                    value="income"
+                    {%
+                    if
+                    transaction.kind=""
+                    ="income"
+                    %}selected{%
+                    endif
+                    %}
+                  >
+                    Income
+                  </option>
+                </select>
+              </label>
+            </div>
+            <div class="form-row">
+              <label
+                >CATEGORY
+                <input
+                  name="category"
+                  required
+                  value="{{ transaction.category }}"
+                />
+              </label>
+              <label
+                >DATE
+                <input
+                  name="occurred_on"
+                  type="date"
+                  required
+                  max="{{ today }}"
+                  value="{{ transaction.occurred_on.isoformat() }}"
+                />
+              </label>
+            </div>
+            <div class="edit-actions">
+              <a class="cancel-link" href="{{ url_for('activity') }}">Cancel</a>
+              <button type="submit">Save changes</button>
+            </div>
+          </form>
+        </section>
+      </main>
+    </div>
+    <script src="{{ url_for('static', filename='theme.js') }}"></script>
+  </body>
+</html>

@@ -1,1 +1,139 @@
-.link-button{display:inline-block;text-decoration:none}.ledger-card{padding:25px}.ledger-head,.ledger-row{display:grid;grid-template-columns:2fr 1fr 1.1fr 1fr;gap:16px;align-items:center}.ledger-head{padding:0 0 12px;border-bottom:1px solid var(--line);font:10px 'DM Mono',monospace;color:var(--muted);letter-spacing:1px;text-transform:uppercase}.ledger-row{padding:14px 0;border-bottom:1px solid #f0f0eb;font-size:13px}.ledger-title{display:flex;align-items:center;gap:11px}.ledger-title .transaction-icon{font-size:9px}.ledger-row>span{color:var(--muted)}.ledger-row>strong{font:13px 'DM Mono',monospace}.ledger-row>strong.income{color:#438059}.plan-hero{background:var(--green);border-radius:13px;min-height:210px;padding:34px 38px;display:flex;justify-content:space-between;align-items:center;margin-bottom:22px}.plan-hero strong{font:700 38px 'Playfair Display',serif;display:block}.plan-hero p:not(.eyebrow){color:#46645d;max-width:430px;margin:8px 0 0;font-size:14px;line-height:1.5}.plan-figure{width:125px;height:125px;border:12px solid #e9d6a0;border-radius:50%;display:grid;place-content:center;text-align:center;background:#c4d9b8}.plan-figure span{font:600 19px 'Playfair Display',serif}.plan-figure small{font-size:11px;color:#4d6c62}.planning-notes{display:flex;flex-direction:column;justify-content:center}.planning-notes .muted{line-height:1.6;margin:14px 0}.text-link{color:var(--green-deep);font-weight:700;font-size:13px;text-decoration:none;margin-top:10px}html[data-theme="dark"] .ledger-row{border-color:#30413f}html[data-theme="dark"] .plan-hero{background:#456858}html[data-theme="dark"] .plan-hero p:not(.eyebrow){color:#d1dfd0}html[data-theme="dark"] .plan-figure{border-color:#a38e5d;background:#355345}@media(max-width:800px){.ledger-head{display:none}.ledger-row{grid-template-columns:1fr auto}.ledger-row>span{display:none}.plan-hero{display:block}.plan-figure{margin-top:22px}.lower-grid{grid-template-columns:1fr}}
+.link-button {
+  display: inline-block;
+  text-decoration: none;
+}
+.ledger-card {
+  padding: 25px;
+}
+.ledger-head,
+.ledger-row {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1.1fr 1fr;
+  gap: 16px;
+  align-items: center;
+}
+.ledger-head {
+  padding: 0 0 12px;
+  border-bottom: 1px solid var(--line);
+  font:
+    10px "DM Mono",
+    monospace;
+  color: var(--muted);
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+.ledger-row {
+  padding: 14px 0;
+  border-bottom: 1px solid #f0f0eb;
+  font-size: 13px;
+}
+.ledger-title {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+}
+.ledger-title .transaction-icon {
+  font-size: 9px;
+}
+.ledger-row > span {
+  color: var(--muted);
+}
+.ledger-row > strong {
+  font:
+    13px "DM Mono",
+    monospace;
+}
+.ledger-row > strong.income {
+  color: #438059;
+}
+.plan-hero {
+  background: var(--green);
+  border-radius: 13px;
+  min-height: 210px;
+  padding: 34px 38px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 22px;
+}
+.plan-hero strong {
+  font:
+    700 38px "Playfair Display",
+    serif;
+  display: block;
+}
+.plan-hero p:not(.eyebrow) {
+  color: #46645d;
+  max-width: 430px;
+  margin: 8px 0 0;
+  font-size: 14px;
+  line-height: 1.5;
+}
+.plan-figure {
+  width: 125px;
+  height: 125px;
+  border: 12px solid #e9d6a0;
+  border-radius: 50%;
+  display: grid;
+  place-content: center;
+  text-align: center;
+  background: #c4d9b8;
+}
+.plan-figure span {
+  font:
+    600 19px "Playfair Display",
+    serif;
+}
+.plan-figure small {
+  font-size: 11px;
+  color: #4d6c62;
+}
+.planning-notes {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.planning-notes .muted {
+  line-height: 1.6;
+  margin: 14px 0;
+}
+.text-link {
+  color: var(--green-deep);
+  font-weight: 700;
+  font-size: 13px;
+  text-decoration: none;
+  margin-top: 10px;
+}
+html[data-theme="dark"] .ledger-row {
+  border-color: #30413f;
+}
+html[data-theme="dark"] .plan-hero {
+  background: #456858;
+}
+html[data-theme="dark"] .plan-hero p:not(.eyebrow) {
+  color: #d1dfd0;
+}
+html[data-theme="dark"] .plan-figure {
+  border-color: #a38e5d;
+  background: #355345;
+}
+@media (max-width: 800px) {
+  .ledger-head {
+    display: none;
+  }
+  .ledger-row {
+    grid-template-columns: 1fr auto;
+  }
+  .ledger-row > span {
+    display: none;
+  }
+  .plan-hero {
+    display: block;
+  }
+  .plan-figure {
+    margin-top: 22px;
+  }
+  .lower-grid {
+    grid-template-columns: 1fr;
+  }
+}

@@ -1,3 +1,100 @@
 <!doctype html>
-<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>{% if mode == 'login' %}Sign in{% else %}Create account{% endif %} - Lumen</title><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=DM+Mono&family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,600;0,700;1,600&display=swap" rel="stylesheet"><link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}"><link rel="stylesheet" href="{{ url_for('static', filename='theme.css') }}"></head>
-<body class="auth-body"><button class="theme-toggle auth-theme" type="button" aria-label="Toggle theme"><span class="theme-icon">Dark</span><span class="theme-label">Dark mode</span></button><main class="auth-wrap"><section class="brand-panel"><a class="brand" href="/">lumen<span>*</span></a><div><p class="eyebrow">PERSONAL FINANCE, CLEARER</p><h1>Money has a<br><em>new rhythm.</em></h1><p class="brand-copy">A calmer, more intentional way to understand where your money is going.</p></div><p class="quote">Clarity is the quietest form of confidence.</p></section><section class="form-panel"><div class="form-box"><p class="eyebrow">{% if mode == 'login' %}WELCOME BACK{% else %}GET STARTED{% endif %}</p><h2>{% if mode == 'login' %}Good to see you.{% else %}Create your space.{% endif %}</h2><p class="muted">{% if mode == 'login' %}Sign in to see your financial picture.{% else %}Begin building a more conscious relationship with your money.{% endif %}</p>{% with messages = get_flashed_messages(with_categories=true) %}{% for category, message in messages %}<div class="alert {{ category }}">{{ message }}</div>{% endfor %}{% endwith %}<form method="post" novalidate>{% if mode == 'register' %}<label>YOUR NAME<input name="name" autocomplete="name" required placeholder="Alex Morgan"></label>{% endif %}<label>EMAIL ADDRESS<input type="text" name="email" autocomplete="username" required placeholder="test-user"></label><label>PASSWORD<input type="password" name="password" autocomplete="current-password" required placeholder="********"></label><button type="submit">{% if mode == 'login' %}Sign in{% else %}Create account{% endif %}</button></form><p class="switch">{% if mode == 'login' %}New here? <a href="{{ url_for('register') }}">Create an account</a>{% else %}Already have an account? <a href="{{ url_for('login') }}">Sign in</a>{% endif %}</p></div></section></main><script src="{{ url_for('static', filename='theme.js') }}"></script></body></html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>
+      {% if mode == 'login' %}Sign in{% else %}Create account{% endif %} - Lumen
+    </title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Mono&family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,600;0,700;1,600&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='styles.css') }}"
+    />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='theme.css') }}"
+    />
+  </head>
+  <body class="auth-body">
+    <button
+      class="theme-toggle auth-theme"
+      type="button"
+      aria-label="Toggle theme"
+    >
+      <span class="theme-icon">Dark</span
+      ><span class="theme-label">Dark mode</span>
+    </button>
+    <main class="auth-wrap">
+      <section class="brand-panel">
+        <a class="brand" href="/">lumen<span>*</span></a>
+        <div>
+          <p class="eyebrow">PERSONAL FINANCE, CLEARER</p>
+          <h1>Money has a<br /><em>new rhythm.</em></h1>
+          <p class="brand-copy">
+            A calmer, more intentional way to understand where your money is
+            going.
+          </p>
+        </div>
+        <p class="quote">Clarity is the quietest form of confidence.</p>
+      </section>
+      <section class="form-panel">
+        <div class="form-box">
+          <p class="eyebrow">
+            {% if mode == 'login' %}WELCOME BACK{% else %}GET STARTED{% endif %}
+          </p>
+          <h2>
+            {% if mode == 'login' %}Good to see you.{% else %}Create your
+            space.{% endif %}
+          </h2>
+          <p class="muted">
+            {% if mode == 'login' %}Sign in to see your financial picture.{%
+            else %}Begin building a more conscious relationship with your
+            money.{% endif %}
+          </p>
+          {% with messages = get_flashed_messages(with_categories=true) %}{% for
+          category, message in messages %}
+          <div class="alert {{ category }}">{{ message }}</div>
+          {% endfor %}{% endwith %}
+          <form method="post" novalidate>
+            {% if mode == 'register' %}<label
+              >YOUR NAME<input
+                name="name"
+                autocomplete="name"
+                required
+                placeholder="Alex Morgan" /></label
+            >{% endif %}<label
+              >EMAIL ADDRESS<input
+                type="text"
+                name="email"
+                autocomplete="username"
+                required
+                placeholder="test-user" /></label
+            ><label
+              >PASSWORD<input
+                type="password"
+                name="password"
+                autocomplete="current-password"
+                required
+                placeholder="********" /></label
+            ><button type="submit">
+              {% if mode == 'login' %}Sign in{% else %}Create account{% endif %}
+            </button>
+          </form>
+          <p class="switch">
+            {% if mode == 'login' %}New here?
+            <a href="{{ url_for('register') }}">Create an account</a>{% else
+            %}Already have an account?
+            <a href="{{ url_for('login') }}">Sign in</a>{% endif %}
+          </p>
+        </div>
+      </section>
+    </main>
+    <script src="{{ url_for('static', filename='theme.js') }}"></script>
+  </body>
+</html>
